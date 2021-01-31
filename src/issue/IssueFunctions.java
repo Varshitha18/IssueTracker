@@ -60,20 +60,29 @@ public class IssueFunctions {
 			}
 		}
 		return myList;
-		}
+	}
 	
 	public void updateIssuePriority(Integer id, int priority) {
 		Issue i = issues.get(id);
-		i.setPriority(priority);
+		if(i != null)
+			i.setPriority(priority);
+		else
+			System.out.println("No issue with such Id");
 	}
 	
 	public void updateIssueDescription(Integer id, String desc) {
 		Issue i = issues.get(id);
-		i.setDescription(desc);
+		if(i != null)
+			i.setDescription(desc);
+		else
+			System.out.println("No issue with such Id");
 	}
 	
 	public void updateAssignedTo(Integer id, String assignedTo) {
 		Issue i = issues.get(id);
-		i.setAssignedTo(assignedTo);
+		if(i != null)
+			i.setAssignedTo(assignedTo);
+		else
+			System.out.println("No issue with such Id");
 	}
 }

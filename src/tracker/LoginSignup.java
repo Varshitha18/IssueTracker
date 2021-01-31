@@ -1,15 +1,12 @@
 package tracker;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 import issue.Issue;
 import issue.IssueFunctions;
-import issue.IssueList;
-//view all posts assigned to me
-//write class and code
+
 public class LoginSignup {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -28,6 +25,7 @@ public class LoginSignup {
 			System.out.println("If you want to update issue priority, type 9 ");
 			System.out.println("If you want to update issue description, type 10 ");
 			System.out.println("If you want to update issue assigned to, type 11 ");
+			System.out.println("For admin login, type 12");
 			int choice = sc.nextInt();
 			
 		if(choice == 1) {
@@ -46,8 +44,6 @@ public class LoginSignup {
 		
 		
 		else if(choice == 2) {
-			//System.out.println("Enter your name :");
-			//String name = sc.nextLine();
 			System.out.println("Enter email id :");
 			String x = sc.nextLine();
 			email = sc.nextLine();
@@ -60,10 +56,6 @@ public class LoginSignup {
 			
 			ValidateRegistration rv = new ValidateRegistration();
 			if(rv.checkUserDetails(email, password, confirmPassword)) {
-				UserDetails u = new UserDetails();
-				Map<String, String> Users = u.getUsers();
-				
-				//System.out.println(Arrays.asList(Users));
 				System.out.println("Signup successful");
 			}
 			else
@@ -106,15 +98,18 @@ public class LoginSignup {
 		}
 		else if(choice == 7) {
 			HashMap<Integer, Issue> vl = f.viewByPriority();
-			for (Map.Entry<Integer,Issue> entry : vl.entrySet()) {  
-	            System.out.println("ID : " + entry.getKey());
-				//System.out.println("Id: " + entry.getValue().getId());
-				System.out.println("Priority: " +entry.getValue().getPriority());
-				System.out.println("Title: "+entry.getValue().getTitle());
-				System.out.println("Description: "+entry.getValue().getDescription());
-				System.out.println("Assigned to: "+entry.getValue().getAssignedTo());
-				System.out.println();
-	            
+			if(vl.isEmpty())
+				System.out.println("No issues exist");
+			else {
+				for (Map.Entry<Integer,Issue> entry : vl.entrySet()) {  
+					System.out.println("ID : " + entry.getKey());
+					//System.out.println("Id: " + entry.getValue().getId());
+					System.out.println("Priority: " +entry.getValue().getPriority());
+					System.out.println("Title: "+entry.getValue().getTitle());
+					System.out.println("Description: "+entry.getValue().getDescription());
+					System.out.println("Assigned to: "+entry.getValue().getAssignedTo());
+					System.out.println();
+				} 
 			}
 		}
 		else if(choice == 8) {
@@ -122,15 +117,19 @@ public class LoginSignup {
 			System.out.println("Enter name to display issues assigned");
 			String name = sc.nextLine();
 			HashMap<Integer, Issue> vl = f.viewByAssignedTo(name);
-			for (Map.Entry<Integer,Issue> entry : vl.entrySet()) {  
-	            System.out.println("ID : " + entry.getKey());
-				//System.out.println("Id: " + entry.getValue().getId());
-				System.out.println("Priority: " +entry.getValue().getPriority());
-				System.out.println("Title: "+entry.getValue().getTitle());
-				System.out.println("Description: "+entry.getValue().getDescription());
-				System.out.println("Assigned to: "+entry.getValue().getAssignedTo());
-				System.out.println();
-		}
+			if(vl.isEmpty())
+				System.out.println("No issues assigned to this name");
+			else {
+				for (Map.Entry<Integer,Issue> entry : vl.entrySet()) {  
+					System.out.println("ID : " + entry.getKey());
+					//System.out.println("Id: " + entry.getValue().getId());
+					System.out.println("Priority: " +entry.getValue().getPriority());
+					System.out.println("Title: "+entry.getValue().getTitle());
+					System.out.println("Description: "+entry.getValue().getDescription());
+					System.out.println("Assigned to: "+entry.getValue().getAssignedTo());
+					System.out.println();
+				}
+			}
 		}
 		else if(choice == 9) {
 			System.out.println("Enter priority");
@@ -155,9 +154,23 @@ public class LoginSignup {
 			int id = sc.nextInt();
 			f.updateAssignedTo(id, assigned);
 		}
+		else if(choice == 12) {
+			String x = sc.nextLine();
+			System.out.println("Enter email id ");
+			email = sc.nextLine();
+			System.out.println("Enter password ");
+			password = sc.nextLine();
+			
+			ValidateAdmin valid = new ValidateAdmin();
+			if(valid.validateAdmincheck(email, password))
+				System.out.println("Sign in successful");
+			else
+				System.out.println("Sign in unsuccessful");
+		}
 		else
-			System.out.println("Please type either a number between 1 to 10:");
+			System.out.println("Please type a number between 1 to 12:");
 	}
+		sc.close();
 }
 
 

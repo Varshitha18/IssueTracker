@@ -10,11 +10,6 @@ public class ValidateUser {
 		UserDetails u = new UserDetails();
 		Map<String, String> Users = u.getUsers();
 		
-		//Users.entrySet().forEach(entry->{
-		//    System.out.println(entry.getKey() + " " + entry.getValue());  
-		// });
-
-		
 		Iterator hmIterator = Users.entrySet().iterator(); 
 		while (hmIterator.hasNext()) { 
             Map.Entry mapElement = (Map.Entry)hmIterator.next(); 
